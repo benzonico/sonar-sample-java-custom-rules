@@ -14,13 +14,13 @@ import org.sonar.plugins.java.api.tree.BaseTreeVisitor;
 import org.sonar.plugins.java.api.tree.MethodTree;
 
 /**
- * This class is an example of how to implement your own rules based on strongly typed AST.
+ * This class is an example of how to implement your own rules based on AST.
  * The (stupid) rule implemented by this check is to raise a Minor issue for each method.
  * The class has the annotation @Rule which allows to specify the rule key and the default priority for the rule.
  */
 @Rule(key = ExampleCheck.KEY, priority = Priority.MINOR, name = "Example", description = "Example")
 /**
- * The class extends BaseTreeVisitor : the visitor for the Java Strongly Typed AST, this class is therefore a visitor.
+ * The class extends BaseTreeVisitor : the visitor for the Java AST, this class is therefore a visitor.
  * The logic of the rule will be implemented in the overriding of its methods.
  * It also implements the JavaFileScanner interface in order to be injected with the JavaFileScannerContext to attach issues to this context.
  */
@@ -41,7 +41,7 @@ public class ExampleCheck extends BaseTreeVisitor implements JavaFileScanner {
   @Override
   public void scanFile(JavaFileScannerContext context) {
     this.context = context;
-    //The call to the scan method on the root of the tree triggers the visit of the strongly typed AST by this visitor.
+    //The call to the scan method on the root of the tree triggers the visit of the AST by this visitor.
     scan(context.getTree());
   }
 
@@ -49,7 +49,7 @@ public class ExampleCheck extends BaseTreeVisitor implements JavaFileScanner {
   /**
    * Overriding of the visitor method.
    * This is where the logic of the rule will be implemented.
-   * @param tree the Strongly Typed AST of the visited method.
+   * @param tree the AST of the visited method.
    */
   @Override
   public void visitMethod(MethodTree tree) {
