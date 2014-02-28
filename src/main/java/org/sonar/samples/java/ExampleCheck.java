@@ -43,6 +43,9 @@ public class ExampleCheck extends BaseTreeVisitor implements JavaFileScanner {
     this.context = context;
     //The call to the scan method on the root of the tree triggers the visit of the AST by this visitor.
     scan(context.getTree());
+    //In order to print out the entire AST of the analyzed file we can use the printer.
+    System.out.println(PrinterVisitor.print(context.getTree()));
+
   }
 
 
@@ -56,7 +59,7 @@ public class ExampleCheck extends BaseTreeVisitor implements JavaFileScanner {
     //All code placed before the call to the overriden method will be executed before visiting the node.
 
     //Adding the issue by attaching it with the tree and the rule that raised the issue and a message.
-    context.addIssue(tree, RULE_KEY, "Method.");
+    context.addIssue(tree, RULE_KEY, "Issue raised on method.");
     //The call to the super implementation allows to continue the visit of the AST.
     //Be careful to always call this method to visit every node of the tree.
     super.visitMethod(tree);
